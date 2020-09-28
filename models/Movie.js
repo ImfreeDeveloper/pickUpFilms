@@ -28,7 +28,12 @@ const movieSchema = new Schema({
   original_title: {
     type: String,
   },
-  genre_ids: [Number],
+  genre_ids: [
+    {
+      type: Number,
+      ref: 'genres'
+    }
+  ],
   backdrop_path: {
     type: String,
   },

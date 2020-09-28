@@ -45,6 +45,28 @@ async function getMovies() {
   }
 }
 
+async function getGenres() {
+  let paramsObj = {
+    'api_key': API_KEY,
+    'language': 'ru-RU'
+  }
+  try {
+    let genresResp = await axios.get('https://api.themoviedb.org/3/genre/movie/list', { params: paramsObj })
+    let genresData = genresResp.data.genres
+
+    console.log(genresData);
+
+    // Запись в json
+    let dataGenresJson = JSON.stringify(genresData, null, 2);
+    fs.writeFile('dataGenres.json', dataGenresJson, (err) => {
+      if (err) throw err;
+      console.log('Все хорошо!');
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function saveImages(movies) {
   const url = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2'
   try {
