@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const movieSchema = new Schema({
-  popularity: Schema.Types.Decimal128,
+  popularity: String,
   id: {
     type: String,
     default: ''
@@ -30,7 +30,7 @@ const movieSchema = new Schema({
   },
   genre_ids: [
     {
-      type: Number,
+      type: Schema.Types.ObjectId,
       ref: 'genres'
     }
   ],

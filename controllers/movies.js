@@ -1,37 +1,9 @@
 const Movie = require('../models/Movie')
-const Genre = require('../models/Genre')
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.getAll = async function (req, res) {
   try {
-    // const movies = await Movie.find({}, function(err, newMovie) {
-    //   if (err) throw err;
-
-    //   newMovie.genre_ids = [{}, {}];
-
-    //   newMovie.save();
-
-    // });
-    await Movie.update({},
-      {$set:{
-        "genre_ids.$": {d: 1}
-      }},
-      {"multi": true},
-      (err, writeResult) => {}
-    );
-
-    const movies = await Movie.find()
-    // movies.forEach(
-    //   async function (newMovie) {
-    //     let genreArr = []
-    //     await Genre.find( { "_id": { $in: newMovie.genre_ids }  } ).lean().exec(function (err, docs) {
-    //       genreArr.push(...docs);
-    //     });
-    //     console.log(genreArr);
-    //     newMovie.genre_ids = genreArr;
-    //   }
-    // )
-
+    const movies = await Movie.find().populate('genre_ids').limit(10);
     res.status(200).json(movies)
   } catch (e) {
     errorHandler(res, e)

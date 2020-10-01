@@ -5,6 +5,7 @@ const cors = require('cors') // cors запросы если другой дом
 const morgan = require('morgan') // логирование
 // роуты
 const moviesRoutes = require('./routes/movies')
+const importRoutes = require('./routes/import')
 
 const keys = require('./config/keys')
 
@@ -24,5 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use('/api/movies', moviesRoutes)
+app.use('/api/import', importRoutes)
 
 module.exports = app
